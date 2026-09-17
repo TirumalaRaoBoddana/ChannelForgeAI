@@ -1,0 +1,6 @@
+{
+  "name": "ChannelForge AI",
+  "description": "Turn your YouTube idea into a complete channel brand in minutes.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
