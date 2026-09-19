@@ -1,0 +1,150 @@
+{
+  "entities": {
+    "users": {
+      "title": "User Profile",
+      "description": "User profile with authentication and subscription details",
+      "type": "object",
+      "properties": {
+        "uid": { "type": "string" },
+        "email": { "type": "string" },
+        "displayName": { "type": "string" },
+        "photoURL": { "type": "string" },
+        "provider": { "type": "string" },
+        "emailVerified": { "type": "boolean" },
+        "createdAt": { "type": "string" },
+        "updatedAt": { "type": "string" }
+      },
+      "required": ["uid", "email"]
+    },
+    "projects": {
+      "title": "Channel Project",
+      "description": "YouTube channel branding and architecture projects",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "userId": { "type": "string" },
+        "title": { "type": "string" },
+        "targetNiche": { "type": "string" },
+        "description": { "type": "string" },
+        "isDemo": { "type": "boolean" },
+        "createdAt": { "type": "string" },
+        "updatedAt": { "type": "string" }
+      },
+      "required": ["title", "targetNiche"]
+    },
+    "generatedAssets": {
+      "title": "Generated Asset",
+      "description": "Visual branding assets such as banners, logos, and watermarks",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "userId": { "type": "string" },
+        "projectId": { "type": "string" },
+        "assetType": { "type": "string" },
+        "storageKey": { "type": "string" },
+        "storageUrl": { "type": "string" },
+        "mimeType": { "type": "string" },
+        "width": { "type": "number" },
+        "height": { "type": "number" },
+        "fileSize": { "type": "number" },
+        "prompt": { "type": "string" },
+        "createdAt": { "type": "string" },
+        "updatedAt": { "type": "string" }
+      },
+      "required": ["projectId", "assetType", "storageKey"]
+    },
+    "usageLimits": {
+      "title": "Usage Limit",
+      "description": "Monthly generation usage tracking",
+      "type": "object",
+      "properties": {
+        "userId": { "type": "string" },
+        "monthlyGenerationsAllowed": { "type": "number" },
+        "monthlyGenerationsUsed": { "type": "number" },
+        "imageGenerationsAllowed": { "type": "number" },
+        "imageGenerationsUsed": { "type": "number" },
+        "tokensUsed": { "type": "number" },
+        "tokenLimit": { "type": "number" },
+        "cycleStartDate": { "type": "string" },
+        "cycleEndDate": { "type": "string" }
+      },
+      "required": ["userId"]
+    },
+    "subscriptions": {
+      "title": "Subscription",
+      "description": "User subscription plan and status",
+      "type": "object",
+      "properties": {
+        "userId": { "type": "string" },
+        "plan": { "type": "string" },
+        "status": { "type": "string" },
+        "currentPeriodEnd": { "type": "string" }
+      },
+      "required": ["userId", "plan", "status"]
+    },
+    "savedGenerations": {
+      "title": "Saved Generation",
+      "description": "Saved generation blueprints and favorites",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "userId": { "type": "string" },
+        "projectId": { "type": "string" },
+        "title": { "type": "string" },
+        "category": { "type": "string" },
+        "data": { "type": "object" },
+        "tags": { "type": "array" },
+        "isFavorite": { "type": "boolean" },
+        "createdAt": { "type": "string" }
+      },
+      "required": ["userId", "title"]
+    },
+    "generationRequests": {
+      "title": "Generation Request",
+      "description": "Audit log for AI generations",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "userId": { "type": "string" },
+        "projectId": { "type": "string" },
+        "provider": { "type": "string" },
+        "model": { "type": "string" },
+        "requestType": { "type": "string" },
+        "status": { "type": "string" },
+        "tokensUsed": { "type": "number" },
+        "startedAt": { "type": "string" }
+      },
+      "required": ["userId", "provider", "model", "status"]
+    }
+  },
+  "firestore": {
+    "/users/{userId}": {
+      "schema": "users",
+      "description": "User document"
+    },
+    "/projects/{projectId}": {
+      "schema": "projects",
+      "description": "Channel project document"
+    },
+    "/generatedAssets/{assetId}": {
+      "schema": "generatedAssets",
+      "description": "Asset metadata"
+    },
+    "/usageLimits/{userId}": {
+      "schema": "usageLimits",
+      "description": "Usage limits document keyed by user ID"
+    },
+    "/subscriptions/{userId}": {
+      "schema": "subscriptions",
+      "description": "Subscription document keyed by user ID"
+    },
+    "/savedGenerations/{savedId}": {
+      "schema": "savedGenerations",
+      "description": "Saved generation document"
+    },
+    "/generationRequests/{requestId}": {
+      "schema": "generationRequests",
+      "description": "Audit logs for AI generation requests"
+    }
+  }
+}

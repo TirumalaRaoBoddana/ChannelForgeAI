@@ -5,7 +5,10 @@
   --radius-lg: var(--radius);
   --radius-md: calc(var(--radius) - 2px);
   --radius-sm: calc(var(--radius) - 4px);
+<<<<<<< HEAD
 
+=======
+>>>>>>> d3bafc2 (User Login,SignUp,Authentication added)
   --color-background: var(--background);
   --color-foreground: var(--foreground);
   --color-card: var(--card);
@@ -25,10 +28,15 @@
   --color-border: var(--border);
   --color-input: var(--input);
   --color-ring: var(--ring);
+<<<<<<< HEAD
 
   --animate-accordion-down: accordion-down 0.2s ease-out;
   --animate-accordion-up: accordion-up 0.2s ease-out;
 
+=======
+  --animate-accordion-down: accordion-down 0.2s ease-out;
+  --animate-accordion-up: accordion-up 0.2s ease-out;
+>>>>>>> d3bafc2 (User Login,SignUp,Authentication added)
   @keyframes accordion-down {
     from { height: 0; }
     to { height: var(--radix-accordion-content-height); }
@@ -41,12 +49,17 @@
 
 @layer base {
   :root {
+<<<<<<< HEAD
     --background: #fafafa;
+=======
+    --background: #fcfcfd;
+>>>>>>> d3bafc2 (User Login,SignUp,Authentication added)
     --foreground: #09090b;
     --card: #ffffff;
     --card-foreground: #09090b;
     --popover: #ffffff;
     --popover-foreground: #09090b;
+<<<<<<< HEAD
     --primary: #0f172a;
     --primary-foreground: #f8fafc;
     --secondary: #f1f5f9;
@@ -60,6 +73,21 @@
     --border: #e2e8f0;
     --input: #e2e8f0;
     --ring: #94a3b8;
+=======
+    --primary: #4f46e5;
+    --primary-foreground: #ffffff;
+    --secondary: #f4f4f5;
+    --secondary-foreground: #18181b;
+    --muted: #f4f4f5;
+    --muted-foreground: #71717a;
+    --accent: #eef2ff;
+    --accent-foreground: #4f46e5;
+    --destructive: #ef4444;
+    --destructive-foreground: #ffffff;
+    --border: #e4e4e7;
+    --input: #e4e4e7;
+    --ring: #4f46e5;
+>>>>>>> d3bafc2 (User Login,SignUp,Authentication added)
     --radius: 0.75rem;
   }
   
@@ -70,8 +98,13 @@
     --card-foreground: #f8fafc;
     --popover: #0f172a;
     --popover-foreground: #f8fafc;
+<<<<<<< HEAD
     --primary: #f8fafc;
     --primary-foreground: #0f172a;
+=======
+    --primary: #6366f1;
+    --primary-foreground: #ffffff;
+>>>>>>> d3bafc2 (User Login,SignUp,Authentication added)
     --secondary: #1e293b;
     --secondary-foreground: #f8fafc;
     --muted: #1e293b;
@@ -82,7 +115,11 @@
     --destructive-foreground: #f8fafc;
     --border: #1e293b;
     --input: #1e293b;
+<<<<<<< HEAD
     --ring: #334155;
+=======
+    --ring: #6366f1;
+>>>>>>> d3bafc2 (User Login,SignUp,Authentication added)
   }
 }
 
@@ -90,7 +127,16 @@
   * {
     @apply border-border outline-ring/50;
   }
+<<<<<<< HEAD
   body {
     @apply bg-background text-foreground antialiased selection:bg-primary/20 selection:text-primary;
+=======
+  html,
+  body {
+    overflow-x: hidden;
+  }
+  body {
+    @apply bg-background text-foreground antialiased selection:bg-primary/20 selection:text-primary min-w-[320px];
+>>>>>>> d3bafc2 (User Login,SignUp,Authentication added)
   }
 }

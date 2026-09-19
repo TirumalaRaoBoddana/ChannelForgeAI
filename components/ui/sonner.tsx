@@ -1,6 +1,10 @@
 "use client"
 
+<<<<<<< HEAD
 import { useTheme } from "next-themes"
+=======
+import { useTheme } from "@/components/theme-provider"
+>>>>>>> d3bafc2 (User Login,SignUp,Authentication added)
 import { Toaster as Sonner } from "sonner"
 
 type ToasterProps = React.ComponentProps<typeof Sonner>

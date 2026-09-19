@@ -1,0 +1,69 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    
+    function isAuthenticated() {
+      return request.auth != null;
+    }
+    
+    function isOwner(userId) {
+      return isAuthenticated() && request.auth.uid == userId;
+    }
+    
+    // User profile: only the authenticated user can read & write their profile
+    match /users/{userId} {
+      allow read: if isAuthenticated();
+      allow create, update, delete: if isOwner(userId);
+    }
+    
+    // Projects: Public demo projects (isDemo == true or userId == null) readable by all;
+    // User projects readable and writable only by their owner
+    match /projects/{projectId} {
+      allow read: if resource.data.isDemo == true || resource.data.userId == null || isOwner(resource.data.userId);
+      allow create: if isAuthenticated() && request.resource.data.userId == request.auth.uid;
+      allow update, delete: if isOwner(resource.data.userId);
+      
+      // Subcollections if any
+      match /{subcollection}/{docId} {
+        allow read: if get(/databases/$(database)/documents/projects/$(projectId)).data.isDemo == true ||
+                       get(/databases/$(database)/documents/projects/$(projectId)).data.userId == null ||
+                       isOwner(get(/databases/$(database)/documents/projects/$(projectId)).data.userId);
+        allow write: if isOwner(get(/databases/$(database)/documents/projects/$(projectId)).data.userId);
+      }
+    }
+    
+    // Generated Assets
+    match /generatedAssets/{assetId} {
+      allow read: if isAuthenticated();
+      allow create: if isAuthenticated() && (request.resource.data.userId == request.auth.uid || request.resource.data.userId == null);
+      allow update, delete: if isAuthenticated() && (resource.data.userId == request.auth.uid || resource.data.userId == null);
+    }
+    
+    // Saved Generations
+    match /savedGenerations/{savedId} {
+      allow read: if isAuthenticated() && resource.data.userId == request.auth.uid;
+      allow create: if isAuthenticated() && request.resource.data.userId == request.auth.uid;
+      allow update, delete: if isAuthenticated() && resource.data.userId == request.auth.uid;
+    }
+    
+    // Usage Limits
+    match /usageLimits/{userId} {
+      allow read: if isOwner(userId);
+      allow write: if isOwner(userId);
+    }
+    
+    // Subscriptions
+    match /subscriptions/{userId} {
+      allow read: if isOwner(userId);
+      allow write: if isOwner(userId);
+    }
+    
+    // Generation Requests Audit Log
+    match /generationRequests/{requestId} {
+      allow read: if isAuthenticated() && resource.data.userId == request.auth.uid;
+      allow create: if isAuthenticated() && request.resource.data.userId == request.auth.uid;
+      allow update: if isAuthenticated() && resource.data.userId == request.auth.uid;
+      allow delete: if false;
+    }
+  }
+}

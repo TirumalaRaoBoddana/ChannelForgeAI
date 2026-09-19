@@ -1,5 +1,6 @@
 "use server";
 
+<<<<<<< HEAD
 import { signIn, signOut } from "@/auth";
 import { prisma } from "@/lib/prisma";
 import bcrypt from "bcryptjs";
@@ -69,3 +70,55 @@ export async function signup(prevState: string | undefined, formData: FormData) 
     throw error;
   }
 }
+=======
+import { adminAuth, adminDb } from "@/lib/firebase/server";
+
+export async function handleSignOut() {
+  // Client handles signOut via Firebase Auth, this is a clean server hook
+  return { success: true };
+}
+
+export async function registerUser(formData: {
+  name?: string;
+  email: string;
+  password?: string;
+}) {
+  try {
+    const email = formData.email.toLowerCase().trim();
+    if (!formData.password) {
+      return { error: "Password is required" };
+    }
+
+    const userRecord = await adminAuth.createUser({
+      email,
+      password: formData.password,
+      displayName: formData.name || email.split("@")[0],
+      emailVerified: false,
+    });
+
+    await adminDb.collection("users").doc(userRecord.uid).set({
+      uid: userRecord.uid,
+      email: userRecord.email,
+      displayName: userRecord.displayName,
+      provider: "password",
+      emailVerified: false,
+      createdAt: new Date().toISOString(),
+      updatedAt: new Date().toISOString(),
+    });
+
+    return {
+      success: true,
+      user: {
+        id: userRecord.uid,
+        name: userRecord.displayName,
+        email: userRecord.email,
+      },
+    };
+  } catch (error: any) {
+    console.error("Firebase admin user registration error:", error);
+    return {
+      error: error.message || "Failed to create account. Please try again.",
+    };
+  }
+}
+>>>>>>> d3bafc2 (User Login,SignUp,Authentication added)

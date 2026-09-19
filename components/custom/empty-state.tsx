@@ -11,7 +11,11 @@ interface EmptyStateProps {
 
 export function EmptyState({ title, description, actionText, onAction, icon }: EmptyStateProps) {
   return (
+<<<<<<< HEAD
     <div className="flex flex-col items-center justify-center p-8 text-center min-h-[400px] border border-dashed rounded-2xl bg-zinc-50/50 dark:bg-zinc-900/50">
+=======
+    <div className="flex flex-col items-center justify-center p-8 text-center min-h-[400px] border border-dashed rounded-2xl bg-secondary/30 dark:bg-secondary/10">
+>>>>>>> d3bafc2 (User Login,SignUp,Authentication added)
       <div className="p-4 bg-background text-muted-foreground rounded-full mb-4 shadow-sm ring-1 ring-border">
         {icon || <FolderX className="w-6 h-6" />}
       </div>
